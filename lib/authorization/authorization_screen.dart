@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthorizationScreen extends StatelessWidget {
   const AuthorizationScreen({super.key});
@@ -7,7 +6,7 @@ class AuthorizationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
 
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -16,7 +15,11 @@ class AuthorizationScreen extends StatelessWidget {
         children: [
           Text(
             "KinoPoisk",
-            style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+              color: Colors.tealAccent,
+            ),
           ),
 
           Column(
@@ -37,7 +40,12 @@ class AuthorizationScreen extends StatelessWidget {
             ],
           ),
 
-          ElevatedButton(
+          FilledButton(
+            style: ButtonStyle(
+              minimumSize: WidgetStatePropertyAll(Size(double.infinity, 50)),
+              foregroundColor: WidgetStatePropertyAll(Colors.white),
+              backgroundColor: WidgetStatePropertyAll(Colors.tealAccent),
+            ),
             onPressed: () {
               print("Handle войти");
             },
@@ -48,4 +56,3 @@ class AuthorizationScreen extends StatelessWidget {
     );
   }
 }
-
