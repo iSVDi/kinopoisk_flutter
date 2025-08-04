@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class AuthorizationScreen extends StatelessWidget {
-  const AuthorizationScreen({super.key});
+  AuthorizationScreen({super.key});
+
+  String login = "";
+
+  String password = "";
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +29,12 @@ class AuthorizationScreen extends StatelessWidget {
           Column(
             spacing: 16,
             children: [
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Логин",
-                ),
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Пароль",
-                ),
-              ),
+              getTextField("Логин", (value) {
+                login = value;
+              }),
+              getTextField("Пароль", (value) {
+                password = value;
+              }),
             ],
           ),
 
@@ -47,12 +45,32 @@ class AuthorizationScreen extends StatelessWidget {
               backgroundColor: WidgetStatePropertyAll(Colors.tealAccent),
             ),
             onPressed: () {
-              print("Handle войти");
+              //TODO: handle authentication
+              print("Login: $login");
+              print("Password: $password");
+              // print("object");
             },
             child: Text("Войти"),
           ),
         ],
       ),
+    );
+  }
+
+  TextField getTextField(String placeholder, Function(String) onChanged) {
+    return TextField(
+      style: TextStyle(),
+
+      decoration: InputDecoration(
+        border: OutlineInputBorder(),
+        // hintStyle: TextStyle(color: Colors.red),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.tealAccent),
+        ),
+        labelText: placeholder,
+        floatingLabelStyle: TextStyle(color: Colors.tealAccent),
+      ),
+      onChanged: onChanged,
     );
   }
 }
