@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:kinopoisk/authorization/shared_preferences_service.dart';
+import 'package:kinopoisk/modules/authorization/shared_preferences_service.dart';
 
 part 'authorization_state.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kinopoisk/authorization/cubit/authorization_cubit.dart';
+import 'package:kinopoisk/modules/authorization/cubit/authorization_cubit.dart';
 
 class AuthorizationScreen extends StatelessWidget {
   AuthorizationScreen({super.key});
