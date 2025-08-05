@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kinopoisk/authorization/cubit/authorization_cubit.dart';
 
 class AuthorizationScreen extends StatelessWidget {
   AuthorizationScreen({super.key});
@@ -9,6 +11,24 @@ class AuthorizationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<AuthorizationCubit, AuthorizationState>(
+      builder: (context, state) {
+        switch (state) {
+          case AuthorizationState.login:
+            return getLoginWidget(context);
+          case AuthorizationState.entered:
+            // TODO: go to moviesList screen
+            print("enter flow");
+            return Text("enter flow");
+          case AuthorizationState.error:
+            // TODO: handle
+            return Text("error flow");
+        }
+      },
+    );
+  }
+
+  Padding getLoginWidget(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
 
@@ -44,12 +64,8 @@ class AuthorizationScreen extends StatelessWidget {
               foregroundColor: WidgetStatePropertyAll(Colors.white),
               backgroundColor: WidgetStatePropertyAll(Colors.tealAccent),
             ),
-            onPressed: () {
-              //TODO: handle authentication
-              print("Login: $login");
-              print("Password: $password");
-              // print("object");
-            },
+            onPressed: () =>
+                context.read<AuthorizationCubit>().signIn(login, password),
             child: Text("Войти"),
           ),
         ],

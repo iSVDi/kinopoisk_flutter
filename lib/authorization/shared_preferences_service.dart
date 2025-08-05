@@ -15,7 +15,7 @@ enum SharedPreferencesKey {
 }
 
 abstract class SharedPreferencesService {
-  void write(String value, SharedPreferencesKey key);
+  Future<bool> write(String value, SharedPreferencesKey key);
   Future<String?> read(SharedPreferencesKey key);
 }
 
@@ -25,12 +25,11 @@ class SharedPreferencesServiceImpl implements SharedPreferencesService {
   Future<String?> read(SharedPreferencesKey key) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(key.title);
-
   }
 
   @override
-  Future<void> write(String value, SharedPreferencesKey key) async {
+  Future<bool> write(String value, SharedPreferencesKey key) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString(key.title, value);
+    return prefs.setString(key.title, value);
   }
 }
