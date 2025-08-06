@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kinopoisk/modules/authorization/cubit/authorization_cubit.dart';
+import 'package:kinopoisk/modules/movie_list/cubit/movie_list_cubit.dart';
+import 'package:kinopoisk/modules/movie_list/movies_list_screen.dart';
 
 class AuthorizationScreen extends StatelessWidget {
   AuthorizationScreen({super.key});
@@ -12,14 +14,10 @@ class AuthorizationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthorizationCubit, AuthorizationState>(
-      builder: (context, state) {
+      builder: (builderContext, state) {
         switch (state) {
           case AuthorizationState.login:
             return getLoginWidget(context);
-          case AuthorizationState.entered:
-            // TODO: go to moviesList screen
-            print("enter flow");
-            return Text("enter flow");
           case AuthorizationState.error:
             // TODO: handle
             return Text("error flow");
@@ -58,15 +56,34 @@ class AuthorizationScreen extends StatelessWidget {
             ],
           ),
 
-          FilledButton(
-            style: ButtonStyle(
-              minimumSize: WidgetStatePropertyAll(Size(double.infinity, 50)),
-              foregroundColor: WidgetStatePropertyAll(Colors.white),
-              backgroundColor: WidgetStatePropertyAll(Colors.tealAccent),
-            ),
-            onPressed: () =>
-                context.read<AuthorizationCubit>().signIn(login, password),
-            child: Text("Войти"),
+          FutureBuilder(
+            future: context.read<AuthorizationCubit>().signIn(login, password),
+            builder: (futureContext, snapshot) {
+              return FilledButton(
+                style: ButtonStyle(
+                  minimumSize: WidgetStatePropertyAll(
+                    Size(double.infinity, 50),
+                  ),
+                  foregroundColor: WidgetStatePropertyAll(Colors.white),
+                  backgroundColor: WidgetStatePropertyAll(Colors.tealAccent),
+                ),
+                onPressed: () async {
+                  if (snapshot.data == true) {
+                    Navigator.push(
+                      futureContext,
+                      MaterialPageRoute(
+                        builder: (builderContext) => BlocProvider(
+                          create: (builderContext) => MovieListCubit(),
+                          child: Material(child: const MoviesListScreen()),
+                        ),
+                      ),
+                    );
+                  }
+                },
+
+                child: Text("Войти"),
+              );
+            },
           ),
         ],
       ),

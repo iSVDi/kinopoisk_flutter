@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:kinopoisk/modules/authorization/shared_preferences_service.dart';
+import 'package:kinopoisk/services/shared_preferences_service.dart';
 
 part 'authorization_state.dart';
 
@@ -7,7 +7,7 @@ class AuthorizationCubit extends Cubit<AuthorizationState> {
   AuthorizationCubit() : super(AuthorizationState.login);
   final prefsService = SharedPreferencesServiceImpl();
 
-  void signIn(String login, String password) async {
+  Future<bool> signIn(String login, String password) async {
     var saveLoginRes = await prefsService.write(
       login,
       SharedPreferencesKey.login,
@@ -17,8 +17,6 @@ class AuthorizationCubit extends Cubit<AuthorizationState> {
       SharedPreferencesKey.password,
     );
 
-    if (saveLoginRes && savePasswordRes) {
-      emit(AuthorizationState.entered);
-    }
+    return saveLoginRes && savePasswordRes;
   }
 }
