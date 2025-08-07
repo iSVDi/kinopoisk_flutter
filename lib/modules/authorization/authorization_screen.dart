@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kinopoisk/components/app_text_field.dart';
 import 'package:kinopoisk/modules/authorization/cubit/authorization_cubit.dart';
 import 'package:kinopoisk/modules/movie_list/cubit/movie_list_cubit.dart';
 import 'package:kinopoisk/modules/movie_list/movies_list_screen.dart';
@@ -8,21 +9,22 @@ class AuthorizationScreen extends StatelessWidget {
   AuthorizationScreen({super.key});
 
   String login = "";
-
   String password = "";
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthorizationCubit, AuthorizationState>(
-      builder: (builderContext, state) {
-        switch (state) {
-          case AuthorizationState.login:
-            return getLoginWidget(context);
-          case AuthorizationState.error:
-            // TODO: handle
-            return Text("error flow");
-        }
-      },
+    return Scaffold(
+      body: BlocBuilder<AuthorizationCubit, AuthorizationState>(
+        builder: (builderContext, state) {
+          switch (state) {
+            case AuthorizationState.login:
+              return getLoginWidget(context);
+            case AuthorizationState.error:
+              // TODO: handle
+              return Text("error flow");
+          }
+        },
+      ),
     );
   }
 
@@ -47,12 +49,18 @@ class AuthorizationScreen extends StatelessWidget {
           Column(
             spacing: 16,
             children: [
-              getTextField("Логин", (value) {
-                login = value;
-              }),
-              getTextField("Пароль", (value) {
-                password = value;
-              }),
+              AppTextField(
+                placeholder: "Логин",
+                onChanged: (value) {
+                  login = value;
+                },
+              ),
+              AppTextField(
+                placeholder: "Пароль",
+                onChanged: (value) {
+                  password = value;
+                },
+              ),
             ],
           ),
 
@@ -87,23 +95,6 @@ class AuthorizationScreen extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  TextField getTextField(String placeholder, Function(String) onChanged) {
-    return TextField(
-      style: TextStyle(),
-
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        // hintStyle: TextStyle(color: Colors.red),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.tealAccent),
-        ),
-        labelText: placeholder,
-        floatingLabelStyle: TextStyle(color: Colors.tealAccent),
-      ),
-      onChanged: onChanged,
     );
   }
 }

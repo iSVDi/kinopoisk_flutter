@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kinopoisk/app/cubit/main_app_cubit_cubit.dart';
@@ -34,7 +33,7 @@ class MainApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => AuthorizationCubit(),
       child: MaterialApp(
-        home: Scaffold(body: AuthorizationScreen()),
+        home: AuthorizationScreen(),
         theme: ThemeData.dark(useMaterial3: true),
       ),
     );
