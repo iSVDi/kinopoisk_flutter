@@ -10,6 +10,7 @@ class MovieDetailsScreen extends StatelessWidget {
     return BlocBuilder<MovieDetailsCubit, MovieDetailsCubitState>(
       builder: (context, state) {
         final cubit = context.read<MovieDetailsCubit>();
+        cubit.loadDetails;
         return Scaffold(
           body: Center(
             child: Column(
@@ -22,6 +23,12 @@ class MovieDetailsScreen extends StatelessWidget {
                   },
                   child: Text("back"),
                 ),
+                // TextButton(
+                //   onPressed: () {
+                //     cubit.loadDetails();
+                //   },
+                //   child: Text("load Details"),
+                // ),
               ],
             ),
           ),

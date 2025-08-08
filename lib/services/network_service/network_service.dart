@@ -16,21 +16,18 @@ abstract class NetworkService extends ChopperService {
     return _$NetworkService(client);
   }
 
-  @GET(
-    headers: {
-      "x-api-key": "ea499c08-37e5-4a7d-976d-916cf7cdde35",
-      "Content-Type": "application/json",
-    },
-  )
+  static const Map<String, String> _headers = {
+    "x-api-key": "ea499c08-37e5-4a7d-976d-916cf7cdde35",
+    "Content-Type": "application/json",
+  };
+
+  @GET(headers: NetworkService._headers)
   Future<Response> getMovies(
     @Query("order") String order,
     @Query("yearFrom") int yearFrom,
     @Query("yearTo") int yearTo,
   );
-}
 
-/**
- * order RATING
- * yearFrom && yearTo - for search by year
- * 
- */
+  @GET(headers: NetworkService._headers, path: "/{id}")
+  Future<Response> getMovieDetails(@Path() int id);
+}
