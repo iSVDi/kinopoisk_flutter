@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kinopoisk/components/app_text_field.dart';
 import 'package:kinopoisk/components/custom_app_bar.dart';
+import 'package:kinopoisk/modules/movie_details/cubit/movie_details_cubit.dart';
+import 'package:kinopoisk/modules/movie_details/movie_details_screen.dart';
 import 'package:kinopoisk/modules/movie_list/cubit/movie_list_cubit.dart';
 import 'package:kinopoisk/modules/movie_list/cubit/state/movie_list_state.dart';
 import 'package:kinopoisk/modules/movie_list/models/movie_list_response.dart';
@@ -32,9 +34,7 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
       title: 'KinoPoisk',
       trailingActions: [
         TextButton(
-          onPressed: () {
-            print("trailing title");
-          },
+          onPressed: () => context.read<MovieListCubit>().logout(),
           child: Icon(Icons.logout, color: Colors.tealAccent, size: 30),
         ),
       ],
@@ -161,7 +161,7 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
       fontSize: 15,
       fontWeight: FontWeight.bold,
     );
-    return Row(
+    final buttonChild = Row(
       children: [
         Image.network(movie.posterUrl, width: 200, height: 200),
         Expanded(
@@ -210,6 +210,21 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
         ),
         Padding(padding: EdgeInsetsGeometry.only(left: 10)),
       ],
+    );
+
+    return TextButton(
+      child: buttonChild,
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (materialPageRouteContext) => BlocProvider(
+              create: (builderContext) => MovieDetailsCubit(movie.kinopoiskId),
+              child: Material(child: const MovieDetailsScreen()),
+            ),
+          ),
+        );
+      },
     );
   }
 }
