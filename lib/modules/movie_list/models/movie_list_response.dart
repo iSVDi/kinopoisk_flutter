@@ -29,7 +29,7 @@ class Movie {
   String? nameOriginal;
   List<Country> countries;
   List<Genre> genres;
-  double ratingKinopoisk;
+  double? ratingKinopoisk;
   double? ratingImdb;
   int year;
   Type type;
@@ -80,4 +80,4 @@ class Genre {
   Map<String, dynamic> toJson() => _$GenreToJson(this);
 }
 
-enum Type { FILM, MINI_SERIES, TV_SERIES, VIDEO }
+enum Type { FILM, MINI_SERIES, TV_SERIES, VIDEO, TV_SHOW }

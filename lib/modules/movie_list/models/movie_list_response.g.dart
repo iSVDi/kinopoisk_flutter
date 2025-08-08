@@ -34,7 +34,7 @@ Movie _$MovieFromJson(Map<String, dynamic> json) => Movie(
   genres: (json['genres'] as List<dynamic>)
       .map((e) => Genre.fromJson(e as Map<String, dynamic>))
       .toList(),
-  ratingKinopoisk: (json['ratingKinopoisk'] as num).toDouble(),
+  ratingKinopoisk: (json['ratingKinopoisk'] as num?)?.toDouble(),
   ratingImdb: (json['ratingImdb'] as num?)?.toDouble(),
   year: (json['year'] as num).toInt(),
   type: $enumDecode(_$TypeEnumMap, json['type']),
@@ -63,6 +63,7 @@ const _$TypeEnumMap = {
   Type.MINI_SERIES: 'MINI_SERIES',
   Type.TV_SERIES: 'TV_SERIES',
   Type.VIDEO: 'VIDEO',
+  Type.TV_SHOW: 'TV_SHOW',
 };
 
 Country _$CountryFromJson(Map<String, dynamic> json) =>

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kinopoisk/components/app_text_field.dart';
 import 'package:kinopoisk/components/custom_app_bar.dart';
 import 'package:kinopoisk/modules/movie_list/cubit/movie_list_cubit.dart';
+import 'package:kinopoisk/modules/movie_list/cubit/state/movie_list_state.dart';
 import 'package:kinopoisk/modules/movie_list/models/movie_list_response.dart';
 
 class MoviesListScreen extends StatefulWidget {
@@ -16,18 +17,13 @@ class MoviesListScreen extends StatefulWidget {
 class _MoviesListScreenState extends State<MoviesListScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBar(context),
-      body: BlocBuilder<MovieListCubit, MovieListState>(
-        builder: (context, state) {
-          switch (state) {
-            case MovieListState.presentingMovies:
-              return movieList(context);
-            case MovieListState.loadingMovies:
-              return loadingMovies();
-          }
-        },
-      ),
+    return BlocBuilder<MovieListCubit, MovieListState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: appBar(context),
+          body: state.isLoading ? loadingMovies() : movieList(context),
+        );
+      },
     );
   }
 
@@ -60,9 +56,7 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
                 color: Colors.tealAccent,
                 size: 30,
               ),
-              onPressed: () {
-                print("sort button tapped");
-              },
+              onPressed: () => cubit.updateOrder(),
             ),
             Expanded(
               child: AppTextField(
@@ -87,7 +81,7 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                cubit.years[cubit.selectedYearIndex].toString(),
+                cubit.state.filters.year.toString(),
                 style: TextStyle(fontSize: 18, color: Colors.grey),
               ),
               Icon(
@@ -119,11 +113,7 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
                           ),
                         )
                         .toList(),
-                    onSelectedItemChanged: (int value) {
-                      setState(() {
-                        cubit.selectedYearIndex = value;
-                      });
-                    },
+                    onSelectedItemChanged: (value) => cubit.updateYear(value),
                   ),
                 );
               },
@@ -148,7 +138,7 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
   }
 
   Widget movieList(BuildContext context) {
-    var movies = context.read<MovieListCubit>().movies;
+    var movies = context.read<MovieListCubit>().state.filteredMovies;
 
     return ListView.separated(
       itemBuilder: (context, id) {
@@ -201,7 +191,11 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
                 children: [
                   Expanded(flex: 2, child: SizedBox()),
                   Text(
-                    movie.ratingKinopoisk.toString(),
+                    (movie.ratingKinopoisk != null
+                            ? movie.ratingKinopoisk!
+                            : "")
+                        .toString(),
+
                     textAlign: TextAlign.end,
                     style: TextStyle(
                       fontSize: 20,

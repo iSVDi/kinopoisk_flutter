@@ -5,7 +5,6 @@ part 'network_service.chopper.dart';
 
 @ChopperApi(baseUrl: "/api/v2.2/films")
 abstract class NetworkService extends ChopperService {
-
   static NetworkService create() {
     final client = ChopperClient(
       // baseUrl: ,
@@ -23,5 +22,15 @@ abstract class NetworkService extends ChopperService {
       "Content-Type": "application/json",
     },
   )
-  Future<Response> getMovies();
+  Future<Response> getMovies(
+    @Query("order") String order,
+    @Query("yearFrom") int yearFrom,
+    @Query("yearTo") int yearTo,
+  );
 }
+
+/**
+ * order RATING
+ * yearFrom && yearTo - for search by year
+ * 
+ */
