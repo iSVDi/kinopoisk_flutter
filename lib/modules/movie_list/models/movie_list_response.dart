@@ -25,7 +25,7 @@ class Movie {
   int kinopoiskId;
   String? imdbId;
   String? nameRu;
-  dynamic nameEn;
+  String? nameEn;
   String? nameOriginal;
   List<Country> countries;
   List<Genre> genres;

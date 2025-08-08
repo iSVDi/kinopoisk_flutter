@@ -26,7 +26,7 @@ Movie _$MovieFromJson(Map<String, dynamic> json) => Movie(
   kinopoiskId: (json['kinopoiskId'] as num).toInt(),
   imdbId: json['imdbId'] as String?,
   nameRu: json['nameRu'] as String?,
-  nameEn: json['nameEn'],
+  nameEn: json['nameEn'] as String?,
   nameOriginal: json['nameOriginal'] as String?,
   countries: (json['countries'] as List<dynamic>)
       .map((e) => Country.fromJson(e as Map<String, dynamic>))

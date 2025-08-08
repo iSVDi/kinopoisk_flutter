@@ -20,6 +20,14 @@ class MovieListCubit extends Cubit<MovieListState> {
     _loadingMovies(state.filters);
   }
 
+  @override
+  void onChange(Change<MovieListState> change) {
+    super.onChange(change);
+    if (change.nextState.isLoading) {
+      _loadingMovies(change.nextState.filters);
+    }
+  }
+
   void logout() {
     //TODO: handle logout
     print("logout");
@@ -28,6 +36,23 @@ class MovieListCubit extends Cubit<MovieListState> {
   void updateOrder() {
     var newFilters = state.filters.copyWith(order: SortOrder.rating);
     var newState = state.copyWith(filters: newFilters, isLoading: true);
+    emit(newState);
+  }
+
+  void handleSearch(String text) {
+    var filteredMovies = state.movies;
+    if (text.isNotEmpty) {
+      filteredMovies = filteredMovies.where((element) {
+        final nameEn = (element.nameEn ?? "").toLowerCase().contains(text);
+        final nameRu = (element.nameOriginal ?? "").toLowerCase().contains(
+          text,
+        );
+        final nameOr = (element.nameRu ?? "").toLowerCase().contains(text);
+
+        return nameEn || nameRu || nameOr;
+      }).toList();
+    }
+    var newState = state.copyWith(filteredMovies: filteredMovies);
     emit(newState);
   }
 
@@ -55,13 +80,5 @@ class MovieListCubit extends Cubit<MovieListState> {
       isLoading: false,
     );
     emit(newState);
-  }
-
-  @override
-  void onChange(Change<MovieListState> change) {
-    super.onChange(change);
-    if (change.nextState.isLoading) {
-      _loadingMovies(change.nextState.filters);
-    }
   }
 }

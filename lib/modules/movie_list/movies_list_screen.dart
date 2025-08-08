@@ -62,7 +62,7 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
               child: AppTextField(
                 placeholder: "keyword",
                 suffixIcon: Icon(Icons.search),
-                onChanged: (text) {},
+                onChanged: (text) => cubit.handleSearch(text),
               ),
             ),
           ],
