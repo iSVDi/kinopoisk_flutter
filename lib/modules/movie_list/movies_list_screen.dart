@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kinopoisk/components/app_text_field.dart';
 import 'package:kinopoisk/components/custom_app_bar.dart';
+import 'package:kinopoisk/components/loading_widget.dart';
 import 'package:kinopoisk/modules/movie_details/cubit/movie_details_cubit.dart';
 import 'package:kinopoisk/modules/movie_details/movie_details_screen.dart';
 import 'package:kinopoisk/modules/movie_list/cubit/movie_list_cubit.dart';
@@ -23,7 +24,7 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
       builder: (context, state) {
         return Scaffold(
           appBar: appBar(context),
-          body: state.isLoading ? loadingMovies() : movieList(context),
+          body: state.isLoading ? LoadingWidget() : movieList(context),
         );
       },
     );
@@ -121,19 +122,6 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
           },
         ),
       ],
-    );
-  }
-
-  Widget loadingMovies() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text("Movies is loading..."),
-          SizedBox(height: 10),
-          CircularProgressIndicator(),
-        ],
-      ),
     );
   }
 

@@ -55,4 +55,20 @@ final class _$NetworkService extends NetworkService {
     );
     return client.send<dynamic, dynamic>($request);
   }
+
+  @override
+  Future<Response<dynamic>> getImagesForMovie(int id) {
+    final Uri $url = Uri.parse('/api/v2.2/films/${id}/images');
+    final Map<String, String> $headers = {
+      'x-api-key': 'ea499c08-37e5-4a7d-976d-916cf7cdde35',
+      'Content-Type': 'application/json',
+    };
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      headers: $headers,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
 }

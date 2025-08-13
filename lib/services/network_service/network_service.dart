@@ -30,4 +30,7 @@ abstract class NetworkService extends ChopperService {
 
   @GET(headers: NetworkService._headers, path: "/{id}")
   Future<Response> getMovieDetails(@Path() int id);
+
+  @GET(headers: NetworkService._headers, path: "/{id}/images")
+  Future<Response> getImagesForMovie(@Path() int id);
 }

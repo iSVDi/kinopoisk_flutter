@@ -9,6 +9,9 @@ part of 'movie_details_response.dart';
 MovieDetailsResponse _$MovieDetailsResponseFromJson(
   Map<String, dynamic> json,
 ) => MovieDetailsResponse(
+  json['images'] == null
+      ? null
+      : MovieImageResponse.fromJson(json['images'] as Map<String, dynamic>),
   kinopoiskId: (json['kinopoiskId'] as num).toInt(),
   kinopoiskHdId: (json['kinopoiskHdId'] as num?)?.toInt(),
   imdbId: json['imdbId'] as String?,
@@ -109,4 +112,24 @@ Map<String, dynamic> _$MovieDetailsResponseToJson(
   'hasImax': instance.hasImax,
   'has3D': instance.has3D,
   'lastSync': instance.lastSync.toIso8601String(),
+  'images': instance.images,
 };
+
+MovieImageResponse _$MovieImageResponseFromJson(Map<String, dynamic> json) =>
+    MovieImageResponse(
+      items: (json['items'] as List<dynamic>)
+          .map((e) => MovieImage.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$MovieImageResponseToJson(MovieImageResponse instance) =>
+    <String, dynamic>{'items': instance.items};
+
+MovieImage _$MovieImageFromJson(Map<String, dynamic> json) =>
+    MovieImage(json['imageUrl'] as String, json['previewUrl'] as String);
+
+Map<String, dynamic> _$MovieImageToJson(MovieImage instance) =>
+    <String, dynamic>{
+      'imageUrl': instance.imageUrl,
+      'previewUrl': instance.previewUrl,
+    };

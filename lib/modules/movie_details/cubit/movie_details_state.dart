@@ -1,6 +1,15 @@
 part of 'movie_details_cubit.dart';
 
-@immutable
-sealed class MovieDetailsCubitState {}
+final class MovieDetailsCubitState {
+  final bool isLoading;
+  final MovieDetailsResponse? details;
 
-final class MovieDetailsCubitInitial extends MovieDetailsCubitState {}
+  MovieDetailsCubitState(this.isLoading, this.details);
+
+  MovieDetailsCubitState copyWith(
+    MovieDetailsResponse? details,
+    bool? isLoading,
+  ) {
+    return MovieDetailsCubitState(isLoading ?? this.isLoading, details);
+  }
+}

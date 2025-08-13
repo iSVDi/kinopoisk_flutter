@@ -4,7 +4,7 @@ import 'package:kinopoisk/modules/movie_list/models/movie_list_response.dart';
 part 'movie_details_response.g.dart';
 
 @JsonSerializable()
-class MovieDetailsResponse {
+final class MovieDetailsResponse {
   final int kinopoiskId;
   final int? kinopoiskHdId;
   final String? imdbId;
@@ -50,8 +50,10 @@ class MovieDetailsResponse {
   final bool hasImax;
   final bool has3D;
   final DateTime lastSync;
+  MovieImageResponse? images;
 
-  MovieDetailsResponse({
+  MovieDetailsResponse(
+    this.images, {
     required this.kinopoiskId,
     required this.kinopoiskHdId,
     required this.imdbId,
@@ -103,4 +105,29 @@ class MovieDetailsResponse {
       _$MovieDetailsResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$MovieDetailsResponseToJson(this);
+}
+
+@JsonSerializable()
+final class MovieImageResponse {
+  final List<MovieImage> items;
+
+  MovieImageResponse({required this.items});
+
+    factory MovieImageResponse.fromJson(Map<String, dynamic> json) =>
+      _$MovieImageResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$MovieImageResponseToJson(this);
+}
+
+@JsonSerializable()
+final class MovieImage {
+  final String imageUrl;
+  final String previewUrl;
+
+  MovieImage(this.imageUrl, this.previewUrl);
+
+  factory MovieImage.fromJson(Map<String, dynamic> json) =>
+      _$MovieImageFromJson(json);
+
+  Map<String, dynamic> toJson() => _$MovieImageToJson(this);
 }
