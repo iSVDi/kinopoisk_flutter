@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kinopoisk/app/cubit/main_app_cubit_cubit.dart';
-import 'package:kinopoisk/modules/authorization/authorization_screen.dart';
-import 'package:kinopoisk/modules/authorization/cubit/authorization_cubit.dart';
-import 'package:kinopoisk/modules/movie_list/cubit/movie_list_cubit.dart';
-import 'package:kinopoisk/modules/movie_list/movies_list_screen.dart';
+import 'cubit/main_app_cubit_cubit.dart';
+import '../modules/authorization/authorization_screen.dart';
+import '../modules/authorization/cubit/authorization_cubit.dart';
+import '../modules/movie_list/cubit/movie_list_cubit.dart';
+import '../modules/movie_list/movies_list_screen.dart';
 
 void main() {
   runApp(MainApp());
 }
-
+//asdadadadassad
 class MainApp extends StatelessWidget {
   final _mainAppCubit = MainAppCubit();
 

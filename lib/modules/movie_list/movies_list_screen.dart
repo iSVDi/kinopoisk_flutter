@@ -37,8 +37,8 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
       title: 'KinoPoisk',
       trailingActions: [
         TextButton(
-          onPressed: () {
-            context.read<MovieListCubit>().logout();
+          onPressed: () async {
+            await context.read<MovieListCubit>().logout();
             Navigator.push(
               context,
               MaterialPageRoute(

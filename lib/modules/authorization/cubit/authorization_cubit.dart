@@ -17,6 +17,6 @@ class AuthorizationCubit extends Cubit<AuthorizationState> {
       SharedPreferencesKey.password,
     );
 
-    return saveLoginRes && savePasswordRes;
+    return saveLoginRes && savePasswordRes;      
   }
 }

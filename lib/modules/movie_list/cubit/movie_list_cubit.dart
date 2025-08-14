@@ -28,8 +28,8 @@ class MovieListCubit extends Cubit<MovieListState> {
     }
   }
 
-  void logout() {
-    userPrefs.clear();
+  Future<void> logout() async {
+    await userPrefs.clear();
   }
 
   void updateOrder() {
