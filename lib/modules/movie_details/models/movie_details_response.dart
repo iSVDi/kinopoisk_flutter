@@ -32,7 +32,7 @@ final class MovieDetailsResponse {
   final int year;
   final int? filmLength;
   final String? slogan;
-  final String description;
+  final String? description;
   final String? shortDescription;
   final String? editorAnnotation;
   final bool isTicketsAvailable;

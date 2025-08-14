@@ -40,7 +40,7 @@ MovieDetailsResponse _$MovieDetailsResponseFromJson(
   year: (json['year'] as num).toInt(),
   filmLength: (json['filmLength'] as num?)?.toInt(),
   slogan: json['slogan'] as String?,
-  description: json['description'] as String,
+  description: json['description'] as String?,
   shortDescription: json['shortDescription'] as String?,
   editorAnnotation: json['editorAnnotation'] as String?,
   isTicketsAvailable: json['isTicketsAvailable'] as bool,

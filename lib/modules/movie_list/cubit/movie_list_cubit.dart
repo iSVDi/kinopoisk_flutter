@@ -73,12 +73,15 @@ class MovieListCubit extends Cubit<MovieListState> {
       filters.year,
       filters.year,
     );
-    var movies = MovieListResponse.fromJson(res.body).items;
-    var newState = state.copyWith(
-      movies: movies,
-      filteredMovies: movies,
-      isLoading: false,
-    );
-    emit(newState);
+
+    if (res.body != null) {
+      var movies = MovieListResponse.fromJson(res.body).items;
+      var newState = state.copyWith(
+        movies: movies,
+        filteredMovies: movies,
+        isLoading: false,
+      );
+      emit(newState);
+    }
   }
 }

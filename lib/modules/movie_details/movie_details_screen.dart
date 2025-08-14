@@ -34,8 +34,8 @@ class MovieDetailsScreen extends StatelessWidget {
   }
 
   Widget getMovieDetails(BuildContext context, MovieDetailsResponse details) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+    return ListView(
+      padding: EdgeInsets.only(),
       children: [
         getPosterWidget(
           context,
@@ -43,7 +43,7 @@ class MovieDetailsScreen extends StatelessWidget {
           details.nameRu ?? details.nameOriginal ?? details.nameEn ?? "",
           details.ratingKinopoisk,
         ),
-        descriptionWidget(details),
+        descriptionWidget(context, details),
         getImagesWidget(details.images),
       ],
     );
@@ -117,7 +117,7 @@ class MovieDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget descriptionWidget(MovieDetailsResponse details) {
+  Widget descriptionWidget(BuildContext context, MovieDetailsResponse details) {
     var header = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -136,7 +136,9 @@ class MovieDetailsScreen extends StatelessWidget {
           ),
           onPressed: () {
             //TODO: handle open link
-            print("Open link handler");
+            context.read<MovieDetailsCubit>().launchInBrowserView(
+              details.webUrl,
+            );
           },
           child: Icon(Icons.link, color: Colors.teal, size: 20),
         ),
@@ -147,7 +149,7 @@ class MovieDetailsScreen extends StatelessWidget {
       spacing: 10,
       children: [
         Text(
-          details.description,
+          details.description ?? "",
           style: TextStyle(
             color: Colors.white,
             fontSize: 15,
