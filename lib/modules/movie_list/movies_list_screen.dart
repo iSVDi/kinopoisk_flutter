@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kinopoisk/components/app_text_field.dart';
 import 'package:kinopoisk/components/custom_app_bar.dart';
 import 'package:kinopoisk/components/loading_widget.dart';
+import 'package:kinopoisk/modules/authorization/authorization_screen.dart';
+import 'package:kinopoisk/modules/authorization/cubit/authorization_cubit.dart';
 import 'package:kinopoisk/modules/movie_details/cubit/movie_details_cubit.dart';
 import 'package:kinopoisk/modules/movie_details/movie_details_screen.dart';
 import 'package:kinopoisk/modules/movie_list/cubit/movie_list_cubit.dart';
@@ -35,7 +37,18 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
       title: 'KinoPoisk',
       trailingActions: [
         TextButton(
-          onPressed: () => context.read<MovieListCubit>().logout(),
+          onPressed: () {
+            context.read<MovieListCubit>().logout();
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (materialPageRouteContext) => BlocProvider(
+                  create: (builderContext) => AuthorizationCubit(),
+                  child: Material(child: AuthorizationScreen()),
+                ),
+              ),
+            );
+          },
           child: Icon(Icons.logout, color: Colors.tealAccent, size: 30),
         ),
       ],

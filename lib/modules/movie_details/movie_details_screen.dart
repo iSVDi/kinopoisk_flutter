@@ -135,7 +135,6 @@ class MovieDetailsScreen extends StatelessWidget {
             padding: WidgetStatePropertyAll(EdgeInsetsGeometry.zero),
           ),
           onPressed: () {
-            //TODO: handle open link
             context.read<MovieDetailsCubit>().launchInBrowserView(
               details.webUrl,
             );
